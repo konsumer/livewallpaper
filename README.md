@@ -1,6 +1,6 @@
 # livewallpaper
 
-Cross-platform live desktop wallpaper for everyone.
+Cross-platform live desktop wallpaper for everyone, using react.
 
 ![screenshot](screen.png)
 
