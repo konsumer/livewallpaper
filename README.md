@@ -8,7 +8,7 @@ It's alot like [uebersicht](https://github.com/felixhageloh/uebersicht), but wit
 
 With it you can make react components for your desktop!
 
-You can control parent-styling (in `settings/global.css`) and make your own widgets, using the full power of nodejs, react, and electron.
+You can control parent-styling (in `settings/global.css`) and make your own widgets (in `settings/widgets`), using the full power of nodejs, react, and electron.
 
 ## STILL IN PROGRESS
 
