@@ -24,6 +24,7 @@
     "babel-register": "^6.11.6",
     "chokidar": "^1.6.0",
     "glob": "^7.0.5",
+    "moment": "^2.14.1",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
     "require-reload": "^0.2.2"
