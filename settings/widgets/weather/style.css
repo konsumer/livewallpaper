@@ -8,22 +8,32 @@
   bottom: 10px;
   left: 10px;
   font-size: 12px;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.1);
   color: #fff;
+  text-align: center;
+}
+
+.Weather .wi {
+  font-size: 20px;
 }
 
 .Weather .item {
   display: inline-block;
   width: 52px;
   height: 52px;
-  text-align: center;
-}
-
-.Weather .item.current {
-  padding-top: 19px;
+  
 }
 
 .Weather .moon-info {
   height: 2.8em;
   display:block;
+}
+
+.Weather .placeName {
+  font-size: 20px;
+  padding-bottom: 5px;
+}
+
+.Weather .extraInfo {
+  padding-top: 5px;
 }

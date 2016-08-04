@@ -43,12 +43,9 @@ function getMod (path) {
   return path.replace(widgetPath, '').split('/')[1]
 }
 
-// TODO: watch css, too
-
 // reload if any file in widgets updates
-const watcher = chokidar.watch(`${widgetPath}/**/*`)
+const watcher = chokidar.watch(`${widgetPath}/**/*`, {ignored: /[\/\\]\./})
 watcher.on('all', (event, path) => {
-  console.log(event, path)
   process.nextTick(() => {
     ReactDOM.render(<Main components={components} />, document.getElementById('app'))
   })
@@ -60,7 +57,17 @@ watcher.on('addDir', path => {
   }
 })
 
-watcher.on('change', path => {
+function genericChange (path) {
   const mod = getMod(path)
   components[mod] = reload(`${widgetPath}/${mod}`).default
+}
+
+watcher.on('unlinkDir', path => {
+  if (dirname(path) === widgetPath) {
+    delete components[getMod(path)]
+  }
 })
+
+watcher.on('change', genericChange)
+watcher.on('unlink', genericChange)
+watcher.on('add', genericChange)
