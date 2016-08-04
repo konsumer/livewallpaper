@@ -4,6 +4,7 @@
   bottom:10px;
   right: 10px;
   text-align: right;
+  text-shadow: 4px 4px 4px rgba(0,0,0,0.5)
 }
 
 .Time .time {
