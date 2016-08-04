@@ -3,8 +3,12 @@ import ReactDOM from 'react-dom'
 import chokidar from 'chokidar'
 import { dirname, resolve, join } from 'path'
 import { existsSync as exists } from 'fs'
+import { remote } from 'electron'
+import { copySync as copy } from 'fs-extra'
 
 import Main from './Main'
+
+const app = remote.app
 
 /* global settingsPath, widgetPath, components, reload, stylesheet, unstylesheet */
 
@@ -27,8 +31,15 @@ global.unstylesheet = path => {
     .forEach(el => el.remove())
 }
 
+if (!exists(join(app.getPath('userData'), 'widgets'))) {
+  copy(resolve(__dirname, '../setings/widgets'), app.getPath('userData'))
+  copy(resolve(__dirname, '../setings/global.css'), app.getPath('userData'))
+}
+
+console.log(app.getPath('userData'))
+
 // this will be in some system folder, later
-global.settingsPath = resolve(__dirname, '../settings/')
+global.settingsPath = app.getPath('userData')
 global.widgetPath = join(settingsPath, 'widgets')
 global.components = []
 

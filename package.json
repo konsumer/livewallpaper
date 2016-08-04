@@ -4,7 +4,7 @@
   "main": "bootstrap.js",
   "scripts": {
     "start": "electron bootstrap.js",
-    "build": "electron-packager . --out=build --prune --all --overwrite --ignore='build|screen.png|README.md|.gitignore'"
+    "build": "electron-packager . 'Live Wallpaper' --app-bundle-id=livewallpaper --icon=icon.ico --out=build --prune --all --overwrite --ignore='build|screen.png|README.md|.gitignore'"
   },
   "author": "David Konsumer <konsumer@jetboystudio.com> (http://konsumer.js.org)",
   "license": "MIT",
@@ -23,6 +23,7 @@
     "babel-preset-react": "^6.11.1",
     "babel-register": "^6.11.6",
     "chokidar": "^1.6.0",
+    "fs-extra": "^0.30.0",
     "glob": "^7.0.5",
     "moment": "^2.14.1",
     "react": "^15.3.0",
