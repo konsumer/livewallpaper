@@ -60,9 +60,6 @@ For more examples, see `settings/widgets`.
 
 *  improve live-reloading
 *  better reloading of css
-*  use notification icon, allow pinning on different desktops, hide in task-manager
-*  move settings into more appropriate user-settings folders
 *  improve error-handling
-*  improve branding (icon, help/about pages, name, etc)
 *  start livewallpaper with OS option
 *  work out better way to load assets, perhaps webpack?
