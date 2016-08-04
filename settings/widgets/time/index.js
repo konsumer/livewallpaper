@@ -1,10 +1,10 @@
 import React from 'react'
 import moment from 'moment'
-/* global stylesheet */
+/* global stylesheet, unstylesheet */
 
 export default class Time extends React.Component {
   componentDidMount () {
-    this._interval = setInterval(this.forceUpdate, 30000)
+    this._interval = setInterval(this.forceUpdate.bind(this), 1000)
     stylesheet(`${__dirname}/style.css`)
   }
 
