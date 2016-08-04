@@ -1,13 +1,7 @@
 import React from 'react'
+import { getWeather, codeToChar, moonIcon, moonText } from './yahoo-weather'
 
 /* global fetch stylesheet, unstylesheet */
-
-// get weather from yahoo
-function yahooWeather (place) {
-  const query = `select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="${place}")`
-  return fetch(`https://query.yahooapis.com/v1/public/yql?format=json&q=${encodeURIComponent(query)}`)
-    .then(r => r.json())
-}
 
 // get rough location from freegeoip
 function getLocation () {
@@ -43,12 +37,12 @@ export default class Weather extends React.Component {
         return r
       })
       .then(location => {
-        console.log('location', location)
-        yahooWeather(`${location.city}, ${location.region_name}, ${location.country_code}`)
+        // console.log('location', location)
+        getWeather(`${location.city}, ${location.region_name}, ${location.country_code}`)
           .then(r => {
             if (r && r.query && r.query.results && r.query.results.channel) {
               this.setState({weather: r.query.results.channel})
-              console.log('weather', r.query.results.channel)
+              // console.log('weather', r.query.results.channel)
             } else {
               console.error('malformed weather', r)
             }
@@ -64,21 +58,34 @@ export default class Weather extends React.Component {
         {!!weather || <div>Getting forecast.</div>}
         {!!weather && (
           <div>
-            <div className='current item' style={{backgroundImage: `url(http://l.yimg.com/a/i/us/we/52/${weather.item.condition.code}.gif)`}}>
+            <div className='current item'>
+              <i className='wi'>{codeToChar(weather.item.condition.code)}</i>
               {weather.item.condition.temp}&deg;{weather.units.temperature}
             </div>
             <div className='forecast'>
-              {weather.item.forecast.map((f, i) => (
-                <div className='item' key={i} style={{backgroundImage: `url(http://l.yimg.com/a/i/us/we/52/${f.code}.gif)`}}>
-                  <div className='day'>{f.day}</div>
-                  <div className='low'>{f.low}&deg;{weather.units.temperature}</div>
-                  <div className='high'>{f.high}&deg;{weather.units.temperature}</div>
-                </div>
-              ))}
+              {weather.item.forecast.map((f, i) => {
+                const theDate = new Date((new Date()).getTime() + (i * 8.64e+7))
+                return (
+                  <div className='item' key={i}>
+                    <i className='wi'>{codeToChar(f.code)}</i>
+                    <div className='day'>{f.day}</div>
+                    <div className='low'>{f.low}&deg;{weather.units.temperature}</div>
+                    <div className='high'>{f.high}&deg;{weather.units.temperature}</div>
+                    <div className='moon-info'>
+                      <i className={`wi moon ${moonIcon(theDate)}`} />
+                    </div>
+                  </div>
+                )
+              })}
             </div>
             <div className='extraInfo'>
-              <div><b>sun:</b> {weather.astronomy.sunrise} - {weather.astronomy.sunset}</div>
-              <div><b>wind:</b> direction: {weather.wind.direction}&deg; chill: {weather.wind.chill}&deg;{weather.units.temperature} speed: {weather.wind.speed}{weather.units.speed}</div>
+              <i className='wi wi-sunrise' /> {weather.astronomy.sunrise}&nbsp;
+              <i className='wi wi-sunset' /> {weather.astronomy.sunset}&nbsp;|&nbsp;
+              <i className={`wi moon ${moonIcon(new Date())}`} /> {moonText(new Date())} moon&nbsp;|&nbsp;
+              <i className='wi wi-windy' />&nbsp;
+              <i className={`wi wi-wind.towards-${weather.wind.direction}-deg`} />&nbsp;
+              {weather.wind.chill}&deg;{weather.units.temperature}&nbsp;
+              chill, {weather.wind.speed}{weather.units.speed}
             </div>
           </div>
         )}

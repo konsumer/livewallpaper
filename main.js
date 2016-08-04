@@ -8,9 +8,9 @@ app.on('ready', () => {
   mainWindow = new BrowserWindow({
     transparent: true,
     frame: false,
-    type: 'desktop'
+  //  type: 'desktop'
   })
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
   mainWindow.loadURL(`file://${__dirname}/index.html`)
   mainWindow.on('closed', () => {
     mainWindow = null

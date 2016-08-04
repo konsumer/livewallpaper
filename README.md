@@ -64,4 +64,5 @@ For more examples, see `settings/widgets`.
 *  move settings into more appropriate user-settings folders
 *  improve error-handling
 *  improve branding (icon, help/about pages, name, etc)
-*  start with OS option
+*  start livewallpaper with OS option
+*  work out better way to load assets, perhaps webpack?
